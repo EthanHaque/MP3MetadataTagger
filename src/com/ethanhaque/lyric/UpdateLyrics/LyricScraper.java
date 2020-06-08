@@ -71,58 +71,123 @@ public class LyricScraper {
 		boolean trySongColeta = true;
 
 		if (tryAZLyrics) {
-			String link = "";
-			String base = "http://www.azlyrics.com/lyrics";
-			String processedArtist = artist.toLowerCase().replaceAll("[^a-z0-9]", "");
-			String processedTitle = title.toLowerCase().replaceAll("[^a-z0-9]", "");
-			link = base + "/" + processedArtist + "/" + processedTitle + ".html";
-			links.put("AZLyrics", link);
+			links.put("AZLyrics", buildAZLyricsLink(artist, title));
 		}
 		if (tryLyricsFandom) {
-			String link = "";
-			String base = "https://lyrics.fandom.com/wiki";
-			String processedArtist = artist.replaceAll("[^a-zA-Z0-9\\s+]", "").replaceAll("\\s+", "_");
-			String processedTitle = title.replaceAll("[^a-zA-Z0-9\\s+]", "").replaceAll("\\s+", "_");
-			link = base + "/" + processedArtist + ":" + processedTitle;
-			links.put("LyricsFandom", link);
+			links.put("LyricsFandom", buildLyricsFandom(artist, title));
 		}
 		if (trySeekALyric) {
-			String link = "";
-			String base = "http://www.seekalyric.com/song";
-			String processedArtist = artist.toLowerCase().replaceAll("[^a-z0-9\\s+-]", "").replaceAll("\\s+-", "_");
-			String processedTitle = title.toLowerCase().replaceAll("[^a-z0-9\\s+-]", "").replaceAll("\\s+-", "_");
-			link = base + "/" + processedArtist + "/" + processedTitle;
-			links.put("SeekALyric", link);
+			links.put("SeekALyric", buildSeekALyric(artist, title));
 		}
 		if (tryELyrics) {
-			String link = "";
-			String base = "http://www.elyrics.net/read";
-			String processedArtist = artist.toLowerCase().replaceAll("[^a-z0-9\\s+']", "").replaceAll("'", "_")
-					.replaceAll("\\s+", "-");
-			String processedTitle = title.toLowerCase().replaceAll("[^a-z0-9\\s+']", "").replaceAll("'", "_")
-					.replaceAll("\\s+", "-");
-			link = base + "/" + processedArtist.substring(0, 1) + "/" + processedArtist + "-lyrics/" + processedTitle
-					+ "-lyrics.html";
-			links.put("ELyrics", link);
+			links.put("ELyrics", buildELyrics(artist, title));
 		}
 		if (tryMetroLyrics) {
-			String link = "";
-			String base = "https://www.metrolyrics.com";
-			String processedArtist = artist.toLowerCase().replaceAll("[^a-z0-9\\s+]", "").replaceAll("\\s+", "-");
-			String processedTitle = title.toLowerCase().replaceAll("[^a-z0-9\\s+]", "").replaceAll("\\s+", "-");
-			link = base + "/" + processedTitle + "-lyrics-" + processedArtist + ".html";
-			links.put("MetroLyrics", link);
+			links.put("MetroLyrics", buildMetroLyrics(artist, title));
 		}
 		if (trySongColeta) {
-			String link = "";
-			String base = "http://www.songcoleta.com/lyrics";
-			String processedArtist = artist.toLowerCase().replaceAll("[^a-z0-9\\s+]", "").replaceAll("\\s+", "_");
-			String processedTitle = title.toLowerCase().replaceAll("[^a-z0-9\\s+]", "").replaceAll("\\s+", "_");
-			link = base + "/" + processedTitle + "_(" + processedArtist + ")";
-			links.put("SongColeta", link);
+			links.put("SongColeta", buildSongColeta(artist, title));
 		}
-
 		return links;
+	}
+	
+	/**
+	 * Builds link given artist title.
+	 * 
+	 * @param artist
+	 * @param title
+	 * @return link for website.
+	 */
+	private String buildAZLyricsLink(String artist, String title) {
+		String link = "";
+		String base = "http://www.azlyrics.com/lyrics";
+		String processedArtist = artist.toLowerCase().replaceAll("[^a-z0-9]", "");
+		String processedTitle = title.toLowerCase().replaceAll("[^a-z0-9]", "");
+		link = base + "/" + processedArtist + "/" + processedTitle + ".html";
+		return link;
+	}
+	
+	/**
+	 * Builds link given artist title.
+	 * 
+	 * @param artist
+	 * @param title
+	 * @return link for website.
+	 */
+	private String buildLyricsFandom(String artist, String title) {
+		String link = "";
+		String base = "https://lyrics.fandom.com/wiki";
+		String processedArtist = artist.replaceAll("[^a-zA-Z0-9\\s+]", "").replaceAll("\\s+", "_");
+		String processedTitle = title.replaceAll("[^a-zA-Z0-9\\s+]", "").replaceAll("\\s+", "_");
+		link = base + "/" + processedArtist + ":" + processedTitle;
+		return link;
+	}
+	
+	/**
+	 * Builds link given artist title.
+	 * 
+	 * @param artist
+	 * @param title
+	 * @return link for website.
+	 */
+	private String buildSeekALyric(String artist, String title) {
+		String link = "";
+		String base = "http://www.seekalyric.com/song";
+		String processedArtist = artist.toLowerCase().replaceAll("[^a-z0-9\\s+-]", "").replaceAll("\\s+-", "_");
+		String processedTitle = title.toLowerCase().replaceAll("[^a-z0-9\\s+-]", "").replaceAll("\\s+-", "_");
+		link = base + "/" + processedArtist + "/" + processedTitle;
+		return link;
+	}
+	
+	/**
+	 * Builds link given artist title.
+	 * 
+	 * @param artist
+	 * @param title
+	 * @return link for website.
+	 */
+	private String buildELyrics(String artist, String title) {
+		String link = "";
+		String base = "http://www.elyrics.net/read";
+		String processedArtist = artist.toLowerCase().replaceAll("[^a-z0-9\\s+']", "").replaceAll("'", "_")
+				.replaceAll("\\s+", "-");
+		String processedTitle = title.toLowerCase().replaceAll("[^a-z0-9\\s+']", "").replaceAll("'", "_")
+				.replaceAll("\\s+", "-");
+		link = base + "/" + processedArtist.substring(0, 1) + "/" + processedArtist + "-lyrics/" + processedTitle
+				+ "-lyrics.html";
+		return link;
+	}
+	
+	/**
+	 * Builds link given artist title.
+	 * 
+	 * @param artist
+	 * @param title
+	 * @return link for website.
+	 */
+	private String buildMetroLyrics(String artist, String title) {
+		String link = "";
+		String base = "https://www.metrolyrics.com";
+		String processedArtist = artist.toLowerCase().replaceAll("[^a-z0-9\\s+]", "").replaceAll("\\s+", "-");
+		String processedTitle = title.toLowerCase().replaceAll("[^a-z0-9\\s+]", "").replaceAll("\\s+", "-");
+		link = base + "/" + processedTitle + "-lyrics-" + processedArtist + ".html";
+		return link;
+	}
+	
+	/**
+	 * Builds link given artist title.
+	 * 
+	 * @param artist
+	 * @param title
+	 * @return link for website.
+	 */
+	private String buildSongColeta(String artist, String title) {
+		String link = "";
+		String base = "http://www.songcoleta.com/lyrics";
+		String processedArtist = artist.toLowerCase().replaceAll("[^a-z0-9\\s+]", "").replaceAll("\\s+", "_");
+		String processedTitle = title.toLowerCase().replaceAll("[^a-z0-9\\s+]", "").replaceAll("\\s+", "_");
+		link = base + "/" + processedTitle + "_(" + processedArtist + ")";
+		return link;
 	}
 
 	/**
